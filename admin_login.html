@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login</title>
+    <link rel="stylesheet"  href="style.css">
+</head>
+<body>
+    <div class="form-container">
+    <form action="" method="post" onsubmit="return validateForm()">
+        <h3>Login</h3>
+        <input type="text" id="Acc.no" required placeholder="Enter username">
+        
+        <input type="password" id="password" required placeholder="Enter your password">
+        
+        </select><br><br>
+        <a class="form-btn" onclick="validateForm()">Login</a><br>
+        
+        
+    </form>
+    </div>
+    <script>
+        function validateForm() {
+            var accountNumber = document.getElementById("Acc.no").value;
+            var password = document.getElementById("password").value;
+            if (accountNumber !== "AES" || password !== "111") {
+                alert("Invalid credentials. Please try again.");
+                return false; 
+            }
+            alert("Hello! Admin happy to see you..");
+            window.location.href = "ledg_jour.html";
+        }
+
+    </script>
+</body>
+</html>
