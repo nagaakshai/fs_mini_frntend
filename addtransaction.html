@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transaction Form</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            z-index: 9999;
+        }
+
+        .popup.show {
+            display: block;
+        }
+
+        .popup.success {
+            background-color: #a8e6a0;
+        }
+
+        .popup.error {
+            background-color: #e6a0a0;
+        }
+    </style>
+    <script>
+        function submitForm() {
+            event.preventDefault();
+            var form = document.forms['google-sheet'];
+            var formData = new FormData(form);
+
+
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        console.log(xhr.responseText);
+                        var response = JSON.parse(xhr.responseText);
+                        showMessage(response);
+                    } else {
+                        showMessage({ status: 'error', message: 'An error occurred during form submission' });
+                    }
+                }
+            };
+            xhr.open(form.method, form.action, true);
+            xhr.send(formData);
+        }
+
+        function showMessage(response) {
+            var popup = document.getElementById('popup');
+            var message = document.getElementById('message');
+            message.innerText = response.message;
+
+            if (response.status === 'success') {
+                console.log(response.status);
+                popup.classList.add('success');
+            } else {
+                popup.classList.add('error');
+            }
+
+            popup.classList.add('show');
+
+            setTimeout(function () {
+                popup.classList.remove('show');
+                popup.classList.remove('success');
+                popup.classList.remove('error');
+            }, 4500);
+        }
+    </script>
+</head>
+
+<body>
+    <div class="form-container">
+        <form autocomplete="off" action="store_transaction.php" method="post" name="google-sheet">
+            <h3>Transaction</h3>
+            <input type="number" name="accno" required placeholder="Account No">
+            <input type="number" name="checkno" required placeholder="Check No">
+            <input type="date" name="date" required placeholder="date" max="2023-07-25" min="2023-01-01">
+
+            <input type="text" name="desc" required placeholder="Description">
+            <input type="number" name="amount" required placeholder="Enter Amount">
+            <input type="submit" name="submit" value="Submit" class="form-btn" onclick="submitForm()"><br><br>
+            <a href="./index.html" class="form-btn">Logout</a><br><br><br>
+
+            <a href="./ledg_jour.html">Back</a>
+        </form>
+    </div>
+
+    <div id="popup" class="popup">
+        <p id="message"></p>
+    </div>
+</body>
+
+</html>
