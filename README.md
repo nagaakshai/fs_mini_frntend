@@ -13,7 +13,9 @@ Steps to run :-
 
 3.Now open XAMPP for the server scripts to run and start the Apache.
 
-4.Go to web browser and type the link as {http://localhost/FS_from%20scrathch/index.html}
+4.Go to web browser and type the link as http://localhost/FS_from%20scrathch/index.html (this will change according to the folder created in htdocs)
+
+format:- http://localhost/filename/index.html
 
 5.Now u will be in the home page.
 
@@ -78,3 +80,5 @@ LEDGER FILE & GENERATION :-
 In this way we will generate the ledger and journal files.
 
 To view only the frontend follow this link :-
+
+https://nagaakshai.github.io/fs_miniproject/
