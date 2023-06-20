@@ -5,11 +5,16 @@ In this project admin will create the transaction with different Accno,Checkno,D
 
 Where Check number should be unique for the transaction to be processed.
 
-Steps to run :-\n
+Steps to run :-
+
 1.Download the complete files and extract in XAMPP --> htdocs folder.
+
 2.Save as FS_from scrathch for the folder name.
+
 3.Now open XAMPP for the server scripts to run and start the Apache.
+
 4.Go to web browser and type the link as {http://localhost/FS_from%20scrathch/index.html}
+
 5.Now u will be in the home page.
 
 
