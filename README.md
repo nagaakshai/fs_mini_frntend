@@ -1,9 +1,11 @@
 # File Structures Mini Project(Inventory Management)
 Technique used :- Transaction Management
+
 In this project admin will create the transaction with different Accno,Checkno,Date,Description,Amount which are attributes.
+
 Where Check number should be unique for the transaction to be processed.
 
-Steps to run :-
+Steps to run :-\n
 1.Download the complete files and extract in XAMPP --> htdocs folder.
 2.Save as FS_from scrathch for the folder name.
 3.Now open XAMPP for the server scripts to run and start the Apache.
