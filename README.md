@@ -13,8 +13,9 @@ Steps to run :-
 
 HOME PAGE :-
 
-![image](https://github.com/nagaakshai/fs_miniproject/assets/77845080/6a7a1352-d02d-402f-b24f-9e14616b3ac7)
+<img width="960" alt="image" src="https://github.com/nagaakshai/fs_miniproject/assets/77845080/9e999ae0-ffd7-49a3-8661-8e8c06986a1f">
+
 
 USER OPTION :-
 
-<img width="960" alt="image" src="https://github.com/nagaakshai/fs_miniproject/assets/77845080/f8ea2952-5036-4844-bc76-ca41ca66f52f">
+<img width="960" alt="image" src="https://github.com/nagaakshai/fs_miniproject/assets/77845080/393df843-3dee-467f-b832-e78fb44df928">
