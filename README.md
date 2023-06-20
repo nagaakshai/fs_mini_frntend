@@ -1,9 +1,14 @@
 # File Structures Mini Project(Inventory Management)
+
 Technique used :- Transaction Management
 
 In this project admin will create the transaction with different Accno,Checkno,Date,Description,Amount which are attributes.
 
-Where Check number should be unique for the transaction to be processed.
+Where Check number should be unique for each transaction to be processed.
+
+USERNAME :- AES
+
+PASSWORD :- 111
 
 Steps to run :-
 
