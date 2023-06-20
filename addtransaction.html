@@ -37,9 +37,18 @@
         function submitForm() {
             event.preventDefault();
             var form = document.forms['google-sheet'];
+    var accno = form.elements['accno'];
+    var checkno = form.elements['checkno'];
+    var date = form.elements['date'];
+    var desc = form.elements['desc'];
+    var amount = form.elements['amount'];
+
+    if (!accno.value || !checkno.value || !date.value || !desc.value || !amount.value) {
+    showMessage({ status: 'error', message: 'Please fill in all the required fields' });
+    return;
+    }
+            var form = document.forms['google-sheet'];
             var formData = new FormData(form);
-
-
             var xhr = new XMLHttpRequest();
             xhr.onreadystatechange = function () {
                 if (xhr.readyState === 4) {
@@ -83,15 +92,13 @@
     <div class="form-container">
         <form autocomplete="off" action="store_transaction.php" method="post" name="google-sheet">
             <h3>Transaction</h3>
-            <input type="number" name="accno" required placeholder="Account No">
-            <input type="number" name="checkno" required placeholder="Check No">
+            <input type="number" name="accno" required placeholder="Account No" min="1">
+            <input type="number" name="checkno" required placeholder="Check No" min="0">
             <input type="date" name="date" required placeholder="date" max="2023-07-25" min="2023-01-01">
-
             <input type="text" name="desc" required placeholder="Description">
-            <input type="number" name="amount" required placeholder="Enter Amount">
+            <input type="number" name="amount" required placeholder="Enter Amount" min="1">
             <input type="submit" name="submit" value="Submit" class="form-btn" onclick="submitForm()"><br><br>
             <a href="./index.html" class="form-btn">Logout</a><br><br><br>
-
             <a href="./ledg_jour.html">Back</a>
         </form>
     </div>

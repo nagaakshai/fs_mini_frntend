@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         $transaction = array(
             'accno' => $transactionData[0],
             'checkno' => $transactionData[1],
-            'date' => $transactionData[2],
+            'date' => date('d-m-Y', strtotime($transactionData[2])), // Format date as "date month year"
             'desc' => $transactionData[3],
             'amount' => $transactionData[4]
         );
