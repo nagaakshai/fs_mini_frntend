@@ -8,39 +8,41 @@
     <title>Journal</title>
     <link rel="stylesheet" href="style.css">
     <style>
-
-    .tr{
-        padding: 10px 20px;
+        .tr {
+            padding: 10px 20px;
             color: crimson;
             background-color: #fbd0d9;
             border: none;
             cursor: pointer;
-            font-size:20px;
-            }
+            font-size: 20px;
+        }
 
-    .tr:hover{
-    background:crimson;
-    color:#fff;
-}
+        .tr:hover {
+            background: crimson;
+            color: #fff;
+        }
 
-        table,th,td {
+        table,
+        th,
+        td {
             border: 1px solid black;
             padding: auto;
             border-collapse: collapse;
         }
 
-        th,td {
+        th,
+        td {
             padding: 8px;
             text-align: center;
         }
     </style>
 </head>
 
-<body>
+<body style="background-image: url(./111.jpg);background-size: cover;background-position: center center;" >
     <center>
         <h1><a><br></a></h1>
-        <div id="result-container">
-            <table class="transaction-table">
+        <div id="result-container" style="background-image: url(./111.jpg);background-size: cover;background-position: center center;">
+            <table class="transaction-table" style="background-color:white">
                 <thead>
                     <tr>
                         <th>&nbsp;Account No&nbsp;</th>
@@ -55,18 +57,18 @@
                     // Read transactions.txt file
                     $transactions = file('transactions.txt', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
 
-                    // Sort transactions by date
-                    usort($transactions, function ($a, $b) {
-                        $aFields = explode(',', $a);
-                        $bFields = explode(',', $b);
-                        $aDate = strtotime($aFields[2]);
-                        $bDate = strtotime($bFields[2]);
-                        if ($aDate === $bDate) {
-                            // Sort by account number if the dates are the same
-                            return strcmp($aFields[0], $bFields[0]);
-                        }
-                        return $aDate - $bDate;
-                    });
+                    // // Sort transactions by date
+                    // usort($transactions, function ($a, $b) {
+                    //     $aFields = explode(',', $a);
+                    //     $bFields = explode(',', $b);
+                    //     $aDate = strtotime($aFields[2]);
+                    //     $bDate = strtotime($bFields[2]);
+                    //     if ($aDate === $bDate) {
+                    //         // Sort by account number if the dates are the same
+                    //         return strcmp($aFields[0], $bFields[0]);
+                    //     }
+                    //     return $aDate - $bDate;
+                    // });
 
                     foreach ($transactions as $transaction) {
                         $fields = explode(',', $transaction);
@@ -81,18 +83,35 @@
                         }
                         echo '</tr>';
                     }
+
+                    // Generate the journal content
+                    $journalContent = '';
+                    foreach ($transactions as $transaction) {
+                        $fields = explode(',', $transaction);
+                        foreach ($fields as $key => $field) {
+                            if ($key === 2) {
+                                $date = date('d-m-Y', strtotime($field));
+                                $journalContent .= $date . ' | ';
+                            } else {
+                                $journalContent .= $field . ' | ';
+                            }
+                        }
+                        $journalContent .= "\n";
+                    }
+
+                    // Write the journal content to the file, overwriting the previous content
+                    file_put_contents('journal.txt', $journalContent);
                     ?>
                 </tbody>
             </table>
         </div>
         <a><br></a>
-    <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="get">
-    <p>
-    <button type="submit" name="generateLedger" class="tr">Generate Journol File</button>
-</form>
-<a><br></a>
-<a href="ledg_jour.html">Back</a>
-<a><br></a>
+        <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+            <button type="submit" name="generateJournal" class="tr">Generate Journal File</button>
+        </form>
+        <a><br></a>
+        <a href="ledg_jour.html">Back</a>
+        <a><br></a>
     </center>
     <br>
 </body>

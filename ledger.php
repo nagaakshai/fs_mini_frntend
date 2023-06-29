@@ -35,52 +35,87 @@
         }
     </style>
 </head>
-<body>
-    <div class="result-container">
-    <?php 
-    if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-        // Read transactions.txt file
-        $transactions = file('transactions.txt', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+<body style="background-image: url(./111.jpg);background-size: cover;background-position: center center;">
+    <div class="result-container" style="background-image: url(./111.jpg);background-size: cover;background-position: center center;">
+    <?php
+if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+    // Read transactions.txt file
+    $transactions = file('transactions.txt', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
 
-        // Create an array to store ledger data
-        $ledger = array();
+    // Create an array to store ledger data
+    $ledger = array();
 
-        foreach ($transactions as $transaction) {
-            $fields = explode(',', $transaction);
+    foreach ($transactions as $transaction) {
+        $fields = explode(',', $transaction);
 
-            $accno = $fields[0];
-            $amount = floatval($fields[4]);
+        $accno = $fields[0];
+        $amount = floatval($fields[4]);
 
-            if (!isset($ledger[$accno])) {
-                $ledger[$accno] = array('transactions' => array(), 'balance' => 0);
+        if (!isset($ledger[$accno])) {
+            $ledger[$accno] = array('transactions' => array(), 'balance' => 0);
+        }
+
+        // Add the transaction to the ledger
+        $ledger[$accno]['transactions'][] = array(
+            'checkno' => $fields[1],
+            'date' => date('d-m-Y', strtotime($fields[2])),
+            'desc' => $fields[3],
+            'amount' => $amount
+        );
+
+        // Update the balance in the ledger
+        $ledger[$accno]['balance'] += $amount;
+    }
+
+    // Sort the ledger by account number in increasing order
+    ksort($ledger);
+
+    // Sort transactions for each account by date in ascending order
+    foreach ($ledger as &$account) {
+        usort($account['transactions'], function ($a, $b) {
+            $dateA = strtotime($a['date']);
+            $dateB = strtotime($b['date']);
+            return $dateA - $dateB;
+        });
+    }
+    unset($account); 
+
+    // Generate month-wise summary for each account
+    $monthSummary = array();
+
+    foreach ($ledger as $accountNumber => $account) {
+        foreach ($account['transactions'] as $transaction) {
+            $month = date('m-Y', strtotime($transaction['date']));
+
+            if (!isset($monthSummary[$accountNumber][$month])) {
+                $monthSummary[$accountNumber][$month] = 0;
             }
 
-            // Add the transaction to the ledger
-            $ledger[$accno]['transactions'][] = array(
-                'checkno' => $fields[1],
-                'date' => date('d-m-Y', strtotime($fields[2])),
-                'desc' => $fields[3],
-                'amount' => $amount
-            );
+            $monthSummary[$accountNumber][$month] += $transaction['amount'];
+        }
+    }
+?>
+<center style="background-color:white">
+    <?php
+    // Print the month-wise summary for each account
+    foreach ($monthSummary as $accountNumber => $summary) {?>
+    <h2><?php
+        echo "Account Number: " . $accountNumber . "<br>";
+?>
+        </h2>
+<?php
+        echo "Month-wise Summary:<br>";
 
-            // Update the balance in the ledger
-            $ledger[$accno]['balance'] += $amount;
+        foreach ($summary as $month => $totalBalance) {
+            echo "Month: " . $month . ", Total Balance: " . $totalBalance . "<br>";
         }
 
-        // Sort the ledger by account number in increasing order
-        ksort($ledger);
+        echo "<br>";
+    }
 
-        // Sort transactions for each account by date in ascending order
-        foreach ($ledger as &$account) {
-            usort($account['transactions'], function ($a, $b) {
-                $dateA = strtotime($a['date']);
-                $dateB = strtotime($b['date']);
-                return $dateA - $dateB;
-            });
-        }
-        unset($account); 
-    ?>
-    <table>
+?>
+</center>
+    <table style="background-color:white">
         <tr>
             <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
             <th>Check no</th>

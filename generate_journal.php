@@ -18,18 +18,18 @@
                 // Read transactions.txt file
                 $transactions = file('transactions.txt', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
 
-                // Sort transactions by date
-                usort($transactions, function ($a, $b) {
-                    $aFields = explode(',', $a);
-                    $bFields = explode(',', $b);
-                    $aDate = strtotime($aFields[2]);
-                    $bDate = strtotime($bFields[2]);
-                    if ($aDate === $bDate) {
-                        // Sort by account number if the dates are the same
-                        return strcmp($aFields[0], $bFields[0]);
-                    }
-                    return $aDate - $bDate;
-                });
+                // // Sort transactions by date
+                // usort($transactions, function ($a, $b) {
+                //     $aFields = explode(',', $a);
+                //     $bFields = explode(',', $b);
+                //     $aDate = strtotime($aFields[2]);
+                //     $bDate = strtotime($bFields[2]);
+                //     if ($aDate === $bDate) {
+                //         // Sort by account number if the dates are the same
+                //         return strcmp($aFields[0], $bFields[0]);
+                //     }
+                //     return $aDate - $bDate;
+                // });
 
                 // Generate the journal content
                 $journalContent = '';
