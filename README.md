@@ -6,7 +6,7 @@ In this project admin will create the transaction with different Accno,Checkno,D
 
 Where Check number should be unique for each transaction to be processed.
 
-USERNAME :- AES
+USERNAME :- admin
 
 PASSWORD :- 111
 
