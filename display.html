@@ -1,46 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Transaction Display</title>
-    <link rel="stylesheet" href="style.css">
-    <style >
-        /* Add spacing between table cells */
-        table,th,td{
-            border:1px solid black;
-            margin-left:auto;
-            margin-right:auto;
+    <style>
+        body {
+            background-image: url(./111.jpg); /* Replace 'your-image.jpg' with the path to your desired background image */
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
         }
-        th,td{
+
+        /* Add spacing between table cells */
+        table,
+        th,
+        td {
+            border: 1px solid black; /* Set table cell borders to black */
+            margin-left: auto;
+            margin-right: auto;
+            color: black; /* Set text color to black */
+        }
+
+        th,
+        td {
             text-align: center;
         }
+
         table.transaction-table {
             border-collapse: collapse;
+            background-color: white; /* Set the table background color to white */
+           
+            border: 1px solid black; /* Set the outermost table border color to black */
         }
 
         table.transaction-table th,
         table.transaction-table td {
             padding: 8px;
         }
+
+        #result-container {
+            color: white; /* Set result container text color to white */
+        }
+
+        #result-container p {
+            font-size: 20px;
+        }
     </style>
 </head>
-
 <body>
-    <h1>&nbsp;</h1>
-    <h1>&nbsp;</h1>
-    <center>
+<h1>&nbsp;</h1>
+<h1>&nbsp;</h1>
+<center>
     <div id="result-container"></div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             var accNo = getQueryParam('accno');
             if (accNo) {
                 // Send the account number to get_transactions.php
                 var xhr = new XMLHttpRequest();
-                xhr.onreadystatechange = function() {
+                xhr.onreadystatechange = function () {
                     if (xhr.readyState === 4 && xhr.status === 200) {
                         var response = JSON.parse(xhr.responseText);
                         displayTransactions(response);
@@ -67,7 +88,7 @@
                 // Create table headers
                 var headers = ['Account No', 'Check No', 'Date', 'Description', 'Amount'];
                 var headerRow = document.createElement('tr');
-                headers.forEach(function(header) {
+                headers.forEach(function (header) {
                     var th = document.createElement('th');
                     th.textContent = header;
                     headerRow.appendChild(th);
@@ -75,9 +96,9 @@
                 table.appendChild(headerRow);
 
                 // Create table rows for each transaction
-                transactions.forEach(function(transaction) {
+                transactions.forEach(function (transaction) {
                     var row = document.createElement('tr');
-                    Object.values(transaction).forEach(function(value) {
+                    Object.values(transaction).forEach(function (value) {
                         var cell = document.createElement('td');
                         cell.textContent = value;
                         row.appendChild(cell);
@@ -89,16 +110,14 @@
             } else {
                 var message = document.createElement('p');
                 message.textContent = 'No transactions found for the specified account number.';
-                message.style.fontSize = '20px';
                 resultContainer.appendChild(message);
             }
         }
     </script>
     <center>
         <a><br></a>
-    <a href="index.html">Home</a>
-</center>
+        <a href="index.html">Home</a>
+    </center>
 </center>
 </body>
-
 </html>
