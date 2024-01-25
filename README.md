@@ -2,7 +2,7 @@
 
 Technique used :- Transaction Management
 
-In this project admin will create the transaction with different Accno,Checkno,Date,Description,Amount which are attributes.
+In this project admin will create the transaction with different Accno, Checkno, Date, Description, Amount which are attributes.
 
 Where Check number should be unique for each transaction to be processed.
 
@@ -22,7 +22,7 @@ Steps to run :-
 
 format:- http://localhost/filename/index.html
 
-5.Now u will be in the home page.
+5.Now you will be in the home page.
 
 
 
